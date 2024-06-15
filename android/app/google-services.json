@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "140127412740",
+    "project_id": "zerohuecos",
+    "storage_bucket": "zerohuecos.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:140127412740:android:ccdbf111803dd3e95f0b51",
+        "android_client_info": {
+          "package_name": "com.z"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBHN9KTxiSm4KvFNpBysDlGPiBoOSBjCY4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:140127412740:android:8794586d837164e85f0b51",
+        "android_client_info": {
+          "package_name": "com.zerohuecos.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBHN9KTxiSm4KvFNpBysDlGPiBoOSBjCY4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
