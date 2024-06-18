@@ -14,3 +14,9 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+
+Es necesario crear en local el archivo secrets.properties con el siguiente contenido o con la llave de Google MAPS:
+
+MAPS_API_KEY="Aqui la API KEY sin comillas"
+

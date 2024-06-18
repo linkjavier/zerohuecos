@@ -15,6 +15,10 @@ class PotholeBloc extends Bloc<PotholeEvent, PotholeState> {
         super(PotholeLoading()) {
     on<LoadPotholes>(_onLoadPotholes);
     on<AddPothole>(_onAddPothole);
+    on<PotholesUpdated>(_onPotholesUpdated);
+
+    // Cargar los potholes al iniciar el Bloc
+    add(LoadPotholes());
   }
 
   void _onLoadPotholes(LoadPotholes event, Emitter<PotholeState> emit) {
@@ -25,5 +29,9 @@ class PotholeBloc extends Bloc<PotholeEvent, PotholeState> {
 
   void _onAddPothole(AddPothole event, Emitter<PotholeState> emit) async {
     await _potholeRepository.addPothole(event.pothole);
+  }
+
+  void _onPotholesUpdated(PotholesUpdated event, Emitter<PotholeState> emit) {
+    emit(PotholeLoaded(potholes: event.potholes));
   }
 }
