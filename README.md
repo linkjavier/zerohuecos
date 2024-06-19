@@ -1,22 +1,95 @@
-# zerohuecos
+# ZeroHuecos
 
-A new Flutter project.
+ZeroHuecos es una aplicación móvil desarrollada en Flutter para reportar y geolocalizar baches (potholes) en tiempo real utilizando servicios de Firebase. La aplicación permite a los usuarios registrarse, iniciar sesión y añadir baches con su ubicación exacta. Además, los usuarios pueden localizar baches en un mapa y ver detalles específicos de cada bache.
 
-## Getting Started
+## Características
 
-This project is a starting point for a Flutter application.
+- **Autenticación de Usuarios**: Registro e inicio de sesión utilizando Firebase Authentication.
+- **Registro de Baches**: Añadir nuevos baches con nombre, hora y coordenadas geográficas.
+- **Visualización de Baches en un Mapa**: Localizar baches en un mapa interactivo con opción de hacer zoom.
+- **Detalles de Baches**: Ver información detallada de cada bache registrado.
+- **Arquitectura Bloc**: Implementación de la arquitectura Bloc para la gestión de estados.
 
-A few resources to get you started if this is your first Flutter project:
+## Tecnologías Utilizadas
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- [Flutter](https://flutter.dev/): Framework de desarrollo de aplicaciones móviles.
+- [Firebase](https://firebase.google.com/): Backend como servicio para autenticación y almacenamiento de datos.
+- [Google Maps API](https://developers.google.com/maps): Para la integración del mapa interactivo.
+- [Bloc](https://bloclibrary.dev/#/): Librería para la gestión de estados en Flutter.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Instalación
+
+### Requisitos Previos
+
+- [Flutter SDK](https://flutter.dev/docs/get-started/install)
+- [Firebase CLI](https://firebase.google.com/docs/cli)
+- Una cuenta de Firebase y un proyecto configurado.
+
+### Pasos para la Instalación
+
+1. **Clonar el Repositorio**
+    ```sh
+    git clone https://github.com/tu-usuario/ZeroHuecos.git
+    cd ZeroHuecos
+    ```
+
+2. **Instalar Dependencias**
+    ```sh
+    flutter pub get
+    ```
+
+3. **Configurar Firebase**
+    - Sigue las [instrucciones oficiales](https://firebase.google.com/docs/flutter/setup) para configurar Firebase en tu aplicación Flutter.
+    - Añade los archivos `google-services.json` (Android) y `GoogleService-Info.plist` (iOS) a sus respectivas carpetas.
+
+4. **Ejecutar la Aplicación**
+    ```sh
+    flutter run
+    ```
+
+## Uso
+
+### Registro e Inicio de Sesión
+
+1. Abre la aplicación.
+2. Regístrate con un nuevo usuario o inicia sesión con uno existente.
+
+### Añadir un Nuevo Bache
+
+1. Navega a la pantalla principal.
+2. Pulsa el botón de añadir (+).
+3. Introduce el nombre del bache y añade su ubicación.
+4. Guarda el bache.
+
+### Localizar y Ver Detalles de un Bache
+
+1. En la lista de baches, toca un bache para ver los botones "Locate" y "Detalles".
+2. Pulsa "Locate" para centrar el mapa en el bache seleccionado con el nivel de zoom máximo.
+3. Pulsa "Detalles" para ver información detallada del bache.
+
+## Estructura del Proyecto
+
+lib/
+├── blocs/ # BloCs para la gestión de estados
+│ ├── auth/
+│ ├── pothole/
+│ ├── map/
+├── models/ # Modelos de datos
+├── repositories/ # Repositorios para acceder a datos
+├── screens/ # Pantallas de la aplicación
+├── widgets/ # Widgets reutilizables
+└── main.dart # Punto de entrada de la aplicación
 
 
-Es necesario crear en local el archivo secrets.properties con el siguiente contenido o con la llave de Google MAPS:
+## Contribuciones
 
-MAPS_API_KEY="Aqui la API KEY sin comillas"
+¡Las contribuciones son bienvenidas! Por favor, abre un issue o un pull request para sugerencias y mejoras.
+
+## Licencia
+
+Este proyecto está bajo la Licencia MIT. Consulta el archivo [LICENSE](LICENSE) para más detalles.
+
+## Contacto
+
+Desarrollado por [Javier Charria Gómez](https://github.com/linkjavier). Si tienes alguna pregunta, no dudes en contactarme en javiercharria@gmail.com.
 

@@ -2,13 +2,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:zerohuecos/models/pothole.dart';
 import 'blocs/auth/auth_bloc.dart';
 import 'blocs/pothole/pothole_bloc.dart';
+import 'blocs/map/map_bloc.dart';
 import 'repositories/auth_repository.dart';
 import 'repositories/pothole_repository.dart';
 import 'screens/login_screen.dart';
 import 'screens/home_screen.dart';
 import 'screens/add_pothole_screen.dart';
+import 'screens/pothole_details_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,6 +30,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) =>
               PotholeBloc(potholeRepository: PotholeRepository()),
+        ),
+        BlocProvider(
+          create: (context) => MapBloc(),
         ),
       ],
       child: MaterialApp(
@@ -48,6 +54,8 @@ class MyApp extends StatelessWidget {
             );
           },
           '/add_pothole': (context) => AddPotholeScreen(),
+          '/pothole_details': (context) => PotholeDetailsScreen(
+              pothole: ModalRoute.of(context)!.settings.arguments as Pothole),
         },
       ),
     );

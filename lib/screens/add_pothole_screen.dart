@@ -58,14 +58,14 @@ class _AddPotholeScreenState extends State<AddPotholeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Add Pothole')),
+      appBar: AppBar(title: Text('Agregar Bache')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
             TextField(
               controller: _nameController,
-              decoration: InputDecoration(labelText: 'Name'),
+              decoration: InputDecoration(labelText: 'Nombre'),
             ),
             SizedBox(height: 20),
             ElevatedButton(
@@ -84,7 +84,7 @@ class _AddPotholeScreenState extends State<AddPotholeScreen> {
                   Navigator.pop(context);
                 }
               },
-              child: Text('Add Pothole'),
+              child: Text('Agregar'),
             ),
           ],
         ),
