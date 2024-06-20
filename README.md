@@ -80,6 +80,8 @@ lib/
 ├── widgets/ # Widgets reutilizables
 └── main.dart # Punto de entrada de la aplicación
 
+geo fix 3.399801 -76.533699
+ 
 
 ## Contribuciones
 
