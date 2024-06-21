@@ -80,8 +80,15 @@ lib/
 ├── widgets/ # Widgets reutilizables
 └── main.dart # Punto de entrada de la aplicación
 
-geo fix 3.399801 -76.533699
- 
+Para cambiar la ubicación GPS en el emulador de Android
+telnet localhost 5554
+auth <auth_token> - La consola te muestra dónde se encuentra el Token.
+geo fix -76.533699 3.399801 Casa
+geo fix -76.517190 3.486501 Exito La FLora
+geo fix -76.537432 3.375251 Pasoancho Panamericana
+geo fix -76.520626 3.458169 Texaco La 25
+geo fix -76.5209161664706 3.458161893658343 Texaco 25
+geo fix -76.521225 3.453709 Tecnoquimicas
 
 ## Contribuciones
 

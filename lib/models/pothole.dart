@@ -11,6 +11,8 @@ class Pothole {
   final String streetNumber;
   final String postalCode;
   final String neighborhood;
+  final List<String> photoUrls;
+  final List<String> videoUrls;
 
   Pothole({
     required this.id,
@@ -23,6 +25,8 @@ class Pothole {
     required this.streetNumber,
     required this.postalCode,
     required this.neighborhood,
+    this.photoUrls = const [],
+    this.videoUrls = const [],
   });
 
   factory Pothole.fromDocument(DocumentSnapshot doc) {
@@ -38,6 +42,8 @@ class Pothole {
       streetNumber: data['streetNumber'] ?? 'Número de calle desconocido',
       postalCode: data['postalCode'] ?? 'Código postal desconocido',
       neighborhood: data['neighborhood'] ?? 'Barrio desconocido',
+      photoUrls: List<String>.from(data['photoUrls'] ?? []),
+      videoUrls: List<String>.from(data['videoUrls'] ?? []),
     );
   }
 
@@ -52,6 +58,8 @@ class Pothole {
       'streetNumber': streetNumber,
       'postalCode': postalCode,
       'neighborhood': neighborhood,
+      'photoUrls': photoUrls,
+      'videoUrls': videoUrls,
     };
   }
 }

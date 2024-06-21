@@ -1,5 +1,5 @@
-// lib/screens/pothole_details_screen.dart
 import 'package:flutter/material.dart';
+import 'package:video_player/video_player.dart';
 import '../models/pothole.dart';
 
 class PotholeDetailsScreen extends StatelessWidget {
@@ -21,35 +21,103 @@ class PotholeDetailsScreen extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('Nombre: ${pothole.name}', style: TextStyle(fontSize: 20)),
-            SizedBox(height: 10),
-            Text('Fecha y Hora: ${pothole.timestamp}',
-                style: TextStyle(fontSize: 16)),
-            SizedBox(height: 10),
-            Text(
-                'Ubicación: (${pothole.location.latitude}, ${pothole.location.longitude})',
-                style: TextStyle(fontSize: 16)),
-            SizedBox(height: 10),
-            Text('Ciudad: ${pothole.city}', style: TextStyle(fontSize: 16)),
-            SizedBox(height: 10),
-            Text('Estado: ${pothole.state}', style: TextStyle(fontSize: 16)),
-            SizedBox(height: 10),
-            Text('Calle: ${pothole.street}', style: TextStyle(fontSize: 16)),
-            SizedBox(height: 10),
-            Text('Número de Calle: ${pothole.streetNumber}',
-                style: TextStyle(fontSize: 16)),
-            SizedBox(height: 10),
-            Text('Código Postal: ${pothole.postalCode}',
-                style: TextStyle(fontSize: 16)),
-            SizedBox(height: 10),
-            Text('Barrio: ${pothole.neighborhood}',
-                style: TextStyle(fontSize: 16)),
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Nombre: ${pothole.name}', style: TextStyle(fontSize: 20)),
+              SizedBox(height: 10),
+              Text('Fecha y Hora: ${pothole.timestamp}',
+                  style: TextStyle(fontSize: 16)),
+              SizedBox(height: 10),
+              Text(
+                  'Ubicación: (${pothole.location.latitude}, ${pothole.location.longitude})',
+                  style: TextStyle(fontSize: 16)),
+              SizedBox(height: 10),
+              Text('Ciudad: ${pothole.city}', style: TextStyle(fontSize: 16)),
+              SizedBox(height: 10),
+              Text('Estado: ${pothole.state}', style: TextStyle(fontSize: 16)),
+              SizedBox(height: 10),
+              Text('Calle: ${pothole.street}', style: TextStyle(fontSize: 16)),
+              SizedBox(height: 10),
+              Text('Número de Calle: ${pothole.streetNumber}',
+                  style: TextStyle(fontSize: 16)),
+              SizedBox(height: 10),
+              Text('Código Postal: ${pothole.postalCode}',
+                  style: TextStyle(fontSize: 16)),
+              SizedBox(height: 10),
+              Text('Barrio: ${pothole.neighborhood}',
+                  style: TextStyle(fontSize: 16)),
+              SizedBox(height: 20),
+              Text('Fotos:', style: TextStyle(fontSize: 18)),
+              SizedBox(height: 10),
+              pothole.photoUrls.isEmpty
+                  ? Text('No hay fotos disponibles')
+                  : Wrap(
+                      spacing: 5,
+                      runSpacing: 5,
+                      children: pothole.photoUrls
+                          .map((url) =>
+                              Image.network(url, height: 200, width: 200))
+                          .toList(),
+                    ),
+              SizedBox(height: 20),
+              Text('Videos:', style: TextStyle(fontSize: 18)),
+              SizedBox(height: 10),
+              pothole.videoUrls.isEmpty
+                  ? Text('No hay videos disponibles')
+                  : Wrap(
+                      spacing: 10,
+                      runSpacing: 10,
+                      children: pothole.videoUrls
+                          .map((url) => AspectRatio(
+                                aspectRatio: 16 / 9,
+                                child: VideoPlayerScreen(url: url),
+                              ))
+                          .toList(),
+                    ),
+            ],
+          ),
         ),
       ),
     );
+  }
+}
+
+class VideoPlayerScreen extends StatefulWidget {
+  final String url;
+
+  VideoPlayerScreen({required this.url});
+
+  @override
+  _VideoPlayerScreenState createState() => _VideoPlayerScreenState();
+}
+
+class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
+  late VideoPlayerController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = VideoPlayerController.network(widget.url)
+      ..initialize().then((_) {
+        setState(() {});
+      });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return _controller.value.isInitialized
+        ? AspectRatio(
+            aspectRatio: _controller.value.aspectRatio,
+            child: VideoPlayer(_controller),
+          )
+        : Center(child: CircularProgressIndicator());
   }
 }

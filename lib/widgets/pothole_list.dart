@@ -32,36 +32,60 @@ class _PotholeListState extends State<PotholeList> {
                     _selectedIndex = _selectedIndex == index ? -1 : index;
                   });
                 },
-                child: Column(
-                  children: [
-                    ListTile(
-                      title: Text(pothole.name),
-                      subtitle: Text(pothole.timestamp.toString()),
-                    ),
-                    if (_selectedIndex == index)
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          TextButton(
-                            onPressed: () {
-                              Navigator.pushNamed(
-                                context,
-                                '/pothole_details',
-                                arguments: pothole,
-                              );
-                            },
-                            child: Text('Detalles'),
+                child: Container(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(pothole.name,
+                                style: TextStyle(
+                                    fontSize: 16, fontWeight: FontWeight.bold)),
+                            Text(pothole.timestamp.toString(),
+                                style: TextStyle(
+                                    fontSize: 14, color: Colors.grey)),
+                          ],
+                        ),
+                      ),
+                      if (_selectedIndex == index) ...[
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 12.0,
+                                vertical: 8.0), // Ajusta el tamaño del padding
+                            textStyle: TextStyle(
+                                fontSize: 14), // Ajusta el tamaño del texto
                           ),
-                          TextButton(
-                            onPressed: () {
-                              BlocProvider.of<MapBloc>(context)
-                                  .add(LocatePothole(pothole));
-                            },
-                            child: Text('Locate'),
+                          onPressed: () {
+                            Navigator.pushNamed(
+                              context,
+                              '/pothole_details',
+                              arguments: pothole,
+                            );
+                          },
+                          child: Text('Detalles'),
+                        ),
+                        SizedBox(width: 8), // Espaciado entre botones
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 12.0,
+                                vertical: 8.0), // Ajusta el tamaño del padding
+                            textStyle: TextStyle(
+                                fontSize: 14), // Ajusta el tamaño del texto
                           ),
-                        ],
-                      )
-                  ],
+                          onPressed: () {
+                            BlocProvider.of<MapBloc>(context)
+                                .add(LocatePothole(pothole));
+                          },
+                          child: Text('Locate'),
+                        ),
+                      ]
+                    ],
+                  ),
                 ),
               );
             },
