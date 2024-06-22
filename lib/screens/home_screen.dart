@@ -7,7 +7,7 @@ import '../blocs/pothole/pothole_bloc.dart';
 import '../widgets/pothole_list.dart';
 import '../blocs/map/map_bloc.dart';
 import '../blocs/map/map_state.dart';
-import '../widgets/pothole_list.dart';
+// import '../widgets/pothole_list.dart';
 
 class HomeScreen extends StatefulWidget {
   @override

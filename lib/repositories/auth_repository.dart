@@ -20,6 +20,15 @@ class AuthRepository {
     await _firebaseAuth.signOut();
   }
 
+  Future<User?> signUpWithEmailAndPassword(
+      String email, String password) async {
+    final userCredential = await _firebaseAuth.createUserWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
+    return userCredential.user;
+  }
+
   Stream<User?> get user {
     return _firebaseAuth.authStateChanges();
   }

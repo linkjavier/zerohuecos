@@ -89,6 +89,7 @@ geo fix -76.537432 3.375251 Pasoancho Panamericana
 geo fix -76.520626 3.458169 Texaco La 25
 geo fix -76.5209161664706 3.458161893658343 Texaco 25
 geo fix -76.521225 3.453709 Tecnoquimicas
+geo fix -76.5319760749882 3.454262620800837 La Ermita
 
 ## Contribuciones
 

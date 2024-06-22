@@ -16,6 +16,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<AuthUserChanged>(_onAuthUserChanged);
     on<AuthSignOutRequested>(_onSignOutRequested);
     on<AuthSignInRequested>(_onSignInRequested);
+    on<AuthSignUpRequested>(_onSignUpRequested);
 
     // Escuchar los cambios de usuario en FirebaseAuth
     _authRepository.user.listen((user) {
@@ -40,7 +41,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     try {
       await _authRepository.signInWithEmailAndPassword(
           event.email, event.password);
-      // Emite el estado Authenticated si la autenticación es exitosa
       final user = FirebaseAuth.instance.currentUser;
       if (user != null) {
         emit(Authenticated(user: user));
@@ -49,6 +49,22 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       }
     } catch (_) {
       emit(AuthError('Failed to sign in'));
+    }
+  }
+
+  void _onSignUpRequested(
+      AuthSignUpRequested event, Emitter<AuthState> emit) async {
+    try {
+      await _authRepository.signUpWithEmailAndPassword(
+          event.email, event.password);
+      final user = FirebaseAuth.instance.currentUser;
+      if (user != null) {
+        emit(Authenticated(user: user));
+      } else {
+        emit(Unauthenticated());
+      }
+    } catch (_) {
+      emit(AuthError('Failed to sign up'));
     }
   }
 }

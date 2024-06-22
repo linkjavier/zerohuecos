@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:zerohuecos/blocs/map/map_bloc.dart';
 import 'package:zerohuecos/blocs/map/map_event.dart';
 import '../blocs/pothole/pothole_bloc.dart';
-import '../models/pothole.dart';
+// import '../models/pothole.dart';
 
 class PotholeList extends StatefulWidget {
   @override
