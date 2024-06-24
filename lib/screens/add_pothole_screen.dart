@@ -12,6 +12,8 @@ import '../blocs/pothole/pothole_bloc.dart';
 import '../models/pothole.dart';
 
 class AddPotholeScreen extends StatefulWidget {
+  const AddPotholeScreen({super.key});
+
   @override
   _AddPotholeScreenState createState() => _AddPotholeScreenState();
 }
@@ -26,8 +28,8 @@ class _AddPotholeScreenState extends State<AddPotholeScreen> {
   String _neighborhood = '';
   bool _isLoadingLocation = true;
   bool _isDisposed = false;
-  List<File> _photos = [];
-  List<File> _videos = [];
+  final List<File> _photos = [];
+  final List<File> _videos = [];
 
   @override
   void initState() {
@@ -71,7 +73,7 @@ class _AddPotholeScreenState extends State<AddPotholeScreen> {
     if (!serviceEnabled) {
       if (!_isDisposed) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
+          const SnackBar(
               content:
                   Text('Los servicios de ubicación están deshabilitados.')),
         );
@@ -85,7 +87,7 @@ class _AddPotholeScreenState extends State<AddPotholeScreen> {
       if (permission == LocationPermission.denied) {
         if (!_isDisposed) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Permiso de ubicación denegado.')),
+            const SnackBar(content: Text('Permiso de ubicación denegado.')),
           );
         }
         return null;
@@ -95,7 +97,7 @@ class _AddPotholeScreenState extends State<AddPotholeScreen> {
     if (permission == LocationPermission.deniedForever) {
       if (!_isDisposed) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
+          const SnackBar(
               content: Text('Permiso de ubicación denegado permanentemente.')),
         );
       }
@@ -198,7 +200,7 @@ class _AddPotholeScreenState extends State<AddPotholeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Agregar Bache'),
+        title: const Text('Agregar Bache'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -208,57 +210,57 @@ class _AddPotholeScreenState extends State<AddPotholeScreen> {
             children: [
               TextField(
                 controller: _nameController,
-                decoration: InputDecoration(labelText: 'Nombre'),
+                decoration: const InputDecoration(labelText: 'Nombre'),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               _isLoadingLocation
-                  ? Center(child: CircularProgressIndicator())
+                  ? const Center(child: CircularProgressIndicator())
                   : Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           'Ciudad: $_city',
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 16, fontWeight: FontWeight.bold),
                         ),
                         Text(
                           'Estado: $_state',
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 16, fontWeight: FontWeight.bold),
                         ),
                         Text(
                           'Calle: $_street',
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 16, fontWeight: FontWeight.bold),
                         ),
                         Text(
                           'Número de Calle: $_streetNumber',
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 16, fontWeight: FontWeight.bold),
                         ),
                         Text(
                           'Código Postal: $_postalCode',
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 16, fontWeight: FontWeight.bold),
                         ),
                         Text(
                           'Barrio: $_neighborhood',
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 16, fontWeight: FontWeight.bold),
                         ),
                       ],
                     ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: _pickImage,
-                child: Text('Seleccionar Foto'),
+                child: const Text('Seleccionar Foto'),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               ElevatedButton(
                 onPressed: _pickVideo,
-                child: Text('Seleccionar Video'),
+                child: const Text('Seleccionar Video'),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () async {
                   final name = _nameController.text;
@@ -286,7 +288,7 @@ class _AddPotholeScreenState extends State<AddPotholeScreen> {
                     Navigator.pop(context);
                   }
                 },
-                child: Text('Agregar'),
+                child: const Text('Agregar'),
               ),
             ],
           ),

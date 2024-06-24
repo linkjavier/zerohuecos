@@ -16,10 +16,12 @@ import 'screens/pothole_details_screen.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -46,14 +48,14 @@ class MyApp extends StatelessWidget {
             return BlocBuilder<AuthBloc, AuthState>(
               builder: (context, state) {
                 if (state is Authenticated) {
-                  return HomeScreen();
+                  return const HomeScreen();
                 } else {
-                  return LoginScreen();
+                  return const LoginScreen();
                 }
               },
             );
           },
-          '/add_pothole': (context) => AddPotholeScreen(),
+          '/add_pothole': (context) => const AddPotholeScreen(),
           '/pothole_details': (context) => PotholeDetailsScreen(
               pothole: ModalRoute.of(context)!.settings.arguments as Pothole),
         },

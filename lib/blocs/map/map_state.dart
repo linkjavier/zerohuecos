@@ -1,6 +1,5 @@
 // lib/blocs/map/map_state.dart
 import 'package:equatable/equatable.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../../models/pothole.dart';
 
 abstract class MapState extends Equatable {

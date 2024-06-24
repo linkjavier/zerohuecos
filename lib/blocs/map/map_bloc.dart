@@ -1,6 +1,5 @@
 // lib/blocs/map/map_bloc.dart
 import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
 import 'map_event.dart';
 import 'map_state.dart';
 

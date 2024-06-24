@@ -5,7 +5,7 @@ import '../models/pothole.dart';
 class PotholeDetailsScreen extends StatelessWidget {
   final Pothole pothole;
 
-  PotholeDetailsScreen({required this.pothole});
+  const PotholeDetailsScreen({super.key, required this.pothole});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +13,7 @@ class PotholeDetailsScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(pothole.name),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.pop(context);
           },
@@ -25,34 +25,34 @@ class PotholeDetailsScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Nombre: ${pothole.name}', style: TextStyle(fontSize: 20)),
-              SizedBox(height: 10),
+              Text('Nombre: ${pothole.name}', style: const TextStyle(fontSize: 20)),
+              const SizedBox(height: 10),
               Text('Fecha y Hora: ${pothole.timestamp}',
-                  style: TextStyle(fontSize: 16)),
-              SizedBox(height: 10),
+                  style: const TextStyle(fontSize: 16)),
+              const SizedBox(height: 10),
               Text(
                   'Ubicación: (${pothole.location.latitude}, ${pothole.location.longitude})',
-                  style: TextStyle(fontSize: 16)),
-              SizedBox(height: 10),
-              Text('Ciudad: ${pothole.city}', style: TextStyle(fontSize: 16)),
-              SizedBox(height: 10),
-              Text('Estado: ${pothole.state}', style: TextStyle(fontSize: 16)),
-              SizedBox(height: 10),
-              Text('Calle: ${pothole.street}', style: TextStyle(fontSize: 16)),
-              SizedBox(height: 10),
+                  style: const TextStyle(fontSize: 16)),
+              const SizedBox(height: 10),
+              Text('Ciudad: ${pothole.city}', style: const TextStyle(fontSize: 16)),
+              const SizedBox(height: 10),
+              Text('Estado: ${pothole.state}', style: const TextStyle(fontSize: 16)),
+              const SizedBox(height: 10),
+              Text('Calle: ${pothole.street}', style: const TextStyle(fontSize: 16)),
+              const SizedBox(height: 10),
               Text('Número de Calle: ${pothole.streetNumber}',
-                  style: TextStyle(fontSize: 16)),
-              SizedBox(height: 10),
+                  style: const TextStyle(fontSize: 16)),
+              const SizedBox(height: 10),
               Text('Código Postal: ${pothole.postalCode}',
-                  style: TextStyle(fontSize: 16)),
-              SizedBox(height: 10),
+                  style: const TextStyle(fontSize: 16)),
+              const SizedBox(height: 10),
               Text('Barrio: ${pothole.neighborhood}',
-                  style: TextStyle(fontSize: 16)),
-              SizedBox(height: 20),
-              Text('Fotos:', style: TextStyle(fontSize: 18)),
-              SizedBox(height: 10),
+                  style: const TextStyle(fontSize: 16)),
+              const SizedBox(height: 20),
+              const Text('Fotos:', style: TextStyle(fontSize: 18)),
+              const SizedBox(height: 10),
               pothole.photoUrls.isEmpty
-                  ? Text('No hay fotos disponibles')
+                  ? const Text('No hay fotos disponibles')
                   : Wrap(
                       spacing: 5,
                       runSpacing: 5,
@@ -61,11 +61,11 @@ class PotholeDetailsScreen extends StatelessWidget {
                               Image.network(url, height: 200, width: 200))
                           .toList(),
                     ),
-              SizedBox(height: 20),
-              Text('Videos:', style: TextStyle(fontSize: 18)),
-              SizedBox(height: 10),
+              const SizedBox(height: 20),
+              const Text('Videos:', style: TextStyle(fontSize: 18)),
+              const SizedBox(height: 10),
               pothole.videoUrls.isEmpty
-                  ? Text('No hay videos disponibles')
+                  ? const Text('No hay videos disponibles')
                   : Wrap(
                       spacing: 10,
                       runSpacing: 10,
@@ -87,7 +87,7 @@ class PotholeDetailsScreen extends StatelessWidget {
 class VideoPlayerScreen extends StatefulWidget {
   final String url;
 
-  VideoPlayerScreen({required this.url});
+  const VideoPlayerScreen({super.key, required this.url});
 
   @override
   _VideoPlayerScreenState createState() => _VideoPlayerScreenState();
@@ -118,6 +118,6 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
             aspectRatio: _controller.value.aspectRatio,
             child: VideoPlayer(_controller),
           )
-        : Center(child: CircularProgressIndicator());
+        : const Center(child: CircularProgressIndicator());
   }
 }

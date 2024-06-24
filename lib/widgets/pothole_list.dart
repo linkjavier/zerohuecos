@@ -7,6 +7,8 @@ import '../blocs/pothole/pothole_bloc.dart';
 // import '../models/pothole.dart';
 
 class PotholeList extends StatefulWidget {
+  const PotholeList({super.key});
+
   @override
   _PotholeListState createState() => _PotholeListState();
 }
@@ -19,7 +21,7 @@ class _PotholeListState extends State<PotholeList> {
     return BlocBuilder<PotholeBloc, PotholeState>(
       builder: (context, state) {
         if (state is PotholeLoading) {
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         } else if (state is PotholeLoaded) {
           final potholes = state.potholes;
           return ListView.builder(
@@ -34,7 +36,7 @@ class _PotholeListState extends State<PotholeList> {
                 },
                 child: Container(
                   padding:
-                      EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                      const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
                   child: Row(
                     children: [
                       Expanded(
@@ -42,10 +44,10 @@ class _PotholeListState extends State<PotholeList> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(pothole.name,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 16, fontWeight: FontWeight.bold)),
                             Text(pothole.timestamp.toString(),
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 14, color: Colors.grey)),
                           ],
                         ),
@@ -53,10 +55,10 @@ class _PotholeListState extends State<PotholeList> {
                       if (_selectedIndex == index) ...[
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            padding: EdgeInsets.symmetric(
+                            padding: const EdgeInsets.symmetric(
                                 horizontal: 12.0,
                                 vertical: 8.0), // Ajusta el tamaño del padding
-                            textStyle: TextStyle(
+                            textStyle: const TextStyle(
                                 fontSize: 14), // Ajusta el tamaño del texto
                           ),
                           onPressed: () {
@@ -66,22 +68,22 @@ class _PotholeListState extends State<PotholeList> {
                               arguments: pothole,
                             );
                           },
-                          child: Text('Detalles'),
+                          child: const Text('Detalles'),
                         ),
-                        SizedBox(width: 8), // Espaciado entre botones
+                        const SizedBox(width: 8), // Espaciado entre botones
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            padding: EdgeInsets.symmetric(
+                            padding: const EdgeInsets.symmetric(
                                 horizontal: 12.0,
                                 vertical: 8.0), // Ajusta el tamaño del padding
-                            textStyle: TextStyle(
+                            textStyle: const TextStyle(
                                 fontSize: 14), // Ajusta el tamaño del texto
                           ),
                           onPressed: () {
                             BlocProvider.of<MapBloc>(context)
                                 .add(LocatePothole(pothole));
                           },
-                          child: Text('Locate'),
+                          child: const Text('Locate'),
                         ),
                       ]
                     ],
@@ -91,7 +93,7 @@ class _PotholeListState extends State<PotholeList> {
             },
           );
         } else {
-          return Center(child: Text('Something went wrong!'));
+          return const Center(child: Text('Something went wrong!'));
         }
       },
     );

@@ -10,6 +10,8 @@ import '../blocs/map/map_state.dart';
 // import '../widgets/pothole_list.dart';
 
 class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -21,10 +23,10 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('ZeroHuecos'),
+        title: const Text('ZeroHuecos'),
         actions: [
           IconButton(
-            icon: Icon(Icons.logout),
+            icon: const Icon(Icons.logout),
             onPressed: () {
               context.read<AuthBloc>().add(AuthSignOutRequested());
             },
@@ -52,7 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 onMapCreated: (controller) {
                   _mapController = controller;
                 },
-                initialCameraPosition: CameraPosition(
+                initialCameraPosition: const CameraPosition(
                   target: LatLng(0, 0),
                   zoom: 2,
                 ),
@@ -75,11 +77,11 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-          Expanded(child: PotholeList()),
+          const Expanded(child: PotholeList()),
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
         onPressed: () {
           Navigator.pushNamed(context, '/add_pothole');
         },

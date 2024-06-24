@@ -48,7 +48,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         emit(Unauthenticated());
       }
     } catch (_) {
-      emit(AuthError('Failed to sign in'));
+      emit(const AuthError('Failed to sign in'));
     }
   }
 
@@ -64,7 +64,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         emit(Unauthenticated());
       }
     } catch (_) {
-      emit(AuthError('Failed to sign up'));
+      emit(const AuthError('Failed to sign up'));
     }
   }
 }
