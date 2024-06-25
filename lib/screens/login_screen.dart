@@ -1,7 +1,6 @@
-// lib/screens/login_screen.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_staggered_animations/flutter_staggered_animations.dart'; // Añadir esta librería para las animaciones FadeInUp
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import '../blocs/auth/auth_bloc.dart';
 import 'register_screen.dart';
 
@@ -41,9 +40,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   AnimationConfiguration.synchronized(
-                    duration: Duration(milliseconds: 1000),
+                    duration: Duration(milliseconds: 3000),
                     child: FadeInAnimation(
-                      child: Text("Login",
+                      child: Text("Iniciar Sesión",
                           style: TextStyle(color: Colors.white, fontSize: 40)),
                     ),
                   ),
@@ -51,7 +50,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   AnimationConfiguration.synchronized(
                     duration: Duration(milliseconds: 1300),
                     child: FadeInAnimation(
-                      child: Text("Welcome Back",
+                      child: Text("Bienvenido",
                           style: TextStyle(color: Colors.white, fontSize: 18)),
                     ),
                   ),
@@ -70,175 +69,180 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(30),
-                  child: Column(
-                    children: <Widget>[
-                      const SizedBox(height: 60),
-                      AnimationConfiguration.synchronized(
-                        duration: const Duration(milliseconds: 1400),
-                        child: FadeInAnimation(
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                              boxShadow: const [
-                                BoxShadow(
-                                  color: Color.fromRGBO(225, 95, 27, .3),
-                                  blurRadius: 20,
-                                  offset: Offset(0, 10),
-                                ),
-                              ],
-                            ),
-                            child: Column(
-                              children: <Widget>[
-                                Container(
-                                  padding: const EdgeInsets.all(10),
-                                  decoration: BoxDecoration(
-                                    border: Border(
-                                        bottom: BorderSide(
-                                            color: Colors.grey.shade200)),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: <Widget>[
+                        const SizedBox(height: 60),
+                        AnimationConfiguration.synchronized(
+                          duration: const Duration(milliseconds: 1400),
+                          child: FadeInAnimation(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10),
+                                boxShadow: const [
+                                  BoxShadow(
+                                    color: Color.fromRGBO(225, 95, 27, .3),
+                                    blurRadius: 20,
+                                    offset: Offset(0, 10),
                                   ),
-                                  child: TextField(
-                                    controller: _emailController,
-                                    decoration: const InputDecoration(
-                                      hintText: "Email or Phone number",
-                                      hintStyle: TextStyle(color: Colors.grey),
-                                      border: InputBorder.none,
+                                ],
+                              ),
+                              child: Column(
+                                children: <Widget>[
+                                  Container(
+                                    padding: const EdgeInsets.all(10),
+                                    decoration: BoxDecoration(
+                                      border: Border(
+                                          bottom: BorderSide(
+                                              color: Colors.grey.shade200)),
+                                    ),
+                                    child: TextField(
+                                      controller: _emailController,
+                                      decoration: const InputDecoration(
+                                        hintText: "Correo Electrónico",
+                                        hintStyle:
+                                            TextStyle(color: Colors.grey),
+                                        border: InputBorder.none,
+                                      ),
                                     ),
                                   ),
-                                ),
-                                Container(
-                                  padding: const EdgeInsets.all(10),
-                                  decoration: BoxDecoration(
-                                    border: Border(
-                                        bottom: BorderSide(
-                                            color: Colors.grey.shade200)),
-                                  ),
-                                  child: TextField(
-                                    controller: _passwordController,
-                                    obscureText: true,
-                                    decoration: const InputDecoration(
-                                      hintText: "Password",
-                                      hintStyle: TextStyle(color: Colors.grey),
-                                      border: InputBorder.none,
+                                  Container(
+                                    padding: const EdgeInsets.all(10),
+                                    decoration: BoxDecoration(
+                                      border: Border(
+                                          bottom: BorderSide(
+                                              color: Colors.grey.shade200)),
+                                    ),
+                                    child: TextField(
+                                      controller: _passwordController,
+                                      obscureText: true,
+                                      decoration: const InputDecoration(
+                                        hintText: "Contraseña",
+                                        hintStyle:
+                                            TextStyle(color: Colors.grey),
+                                        border: InputBorder.none,
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      const SizedBox(height: 40),
-                      const AnimationConfiguration.synchronized(
-                        duration: Duration(milliseconds: 1500),
-                        child: FadeInAnimation(
-                          child: Text("Forgot Password?",
-                              style: TextStyle(color: Colors.grey)),
+                        const SizedBox(height: 40),
+                        const AnimationConfiguration.synchronized(
+                          duration: Duration(milliseconds: 1500),
+                          child: FadeInAnimation(
+                            child: Text("¿Olvidaste tu contraseña?",
+                                style: TextStyle(color: Colors.grey)),
+                          ),
                         ),
-                      ),
-                      const SizedBox(height: 40),
-                      AnimationConfiguration.synchronized(
-                        duration: const Duration(milliseconds: 1600),
-                        child: FadeInAnimation(
-                          child: MaterialButton(
-                            onPressed: () {
-                              final email = _emailController.text;
-                              final password = _passwordController.text;
-                              context.read<AuthBloc>().add(AuthSignInRequested(
-                                  email: email, password: password));
-                            },
-                            height: 50,
-                            color: Colors.orange[900],
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(50),
-                            ),
-                            child: const Center(
-                              child: Text("Login",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold)),
+                        const SizedBox(height: 40),
+                        AnimationConfiguration.synchronized(
+                          duration: const Duration(milliseconds: 1600),
+                          child: FadeInAnimation(
+                            child: MaterialButton(
+                              onPressed: () {
+                                final email = _emailController.text;
+                                final password = _passwordController.text;
+                                context.read<AuthBloc>().add(
+                                    AuthSignInRequested(
+                                        email: email, password: password));
+                              },
+                              height: 50,
+                              color: Colors.orange[900],
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(50),
+                              ),
+                              child: const Center(
+                                child: Text("Iniciar",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold)),
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      const SizedBox(height: 50),
-                      const AnimationConfiguration.synchronized(
-                        duration: Duration(milliseconds: 1700),
-                        child: FadeInAnimation(
-                          child: Text("Continue with social media",
-                              style: TextStyle(color: Colors.grey)),
+                        const SizedBox(height: 50),
+                        const AnimationConfiguration.synchronized(
+                          duration: Duration(milliseconds: 1700),
+                          child: FadeInAnimation(
+                            child: Text("Continuar con redes sociales",
+                                style: TextStyle(color: Colors.grey)),
+                          ),
                         ),
-                      ),
-                      const SizedBox(height: 30),
-                      Row(
-                        children: <Widget>[
-                          Expanded(
-                            child: AnimationConfiguration.synchronized(
-                              duration: const Duration(milliseconds: 1800),
-                              child: FadeInAnimation(
-                                child: MaterialButton(
-                                  onPressed: () {},
-                                  height: 50,
-                                  color: Colors.blue,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(50),
-                                  ),
-                                  child: const Center(
-                                    child: Text("Facebook",
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold)),
+                        const SizedBox(height: 30),
+                        Row(
+                          children: <Widget>[
+                            Expanded(
+                              child: AnimationConfiguration.synchronized(
+                                duration: const Duration(milliseconds: 1800),
+                                child: FadeInAnimation(
+                                  child: MaterialButton(
+                                    onPressed: () {},
+                                    height: 50,
+                                    color: Colors.blue,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(50),
+                                    ),
+                                    child: const Center(
+                                      child: Text("Facebook",
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold)),
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
-                          ),
-                          const SizedBox(width: 30),
-                          Expanded(
-                            child: AnimationConfiguration.synchronized(
-                              duration: const Duration(milliseconds: 1900),
-                              child: FadeInAnimation(
-                                child: MaterialButton(
-                                  onPressed: () {},
-                                  height: 50,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(50),
-                                  ),
-                                  color: Colors.black,
-                                  child: const Center(
-                                    child: Text("Github",
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold)),
+                            const SizedBox(width: 30),
+                            Expanded(
+                              child: AnimationConfiguration.synchronized(
+                                duration: const Duration(milliseconds: 1900),
+                                child: FadeInAnimation(
+                                  child: MaterialButton(
+                                    onPressed: () {},
+                                    height: 50,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(50),
+                                    ),
+                                    color: Colors.black,
+                                    child: const Center(
+                                      child: Text("Github",
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold)),
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 20),
-                      BlocBuilder<AuthBloc, AuthState>(
-                        builder: (context, state) {
-                          if (state is AuthError) {
-                            return Text(state.message,
-                                style: const TextStyle(color: Colors.red));
-                          }
-                          return Container();
-                        },
-                      ),
-                      const SizedBox(height: 20),
-                      TextButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const RegisterScreen()),
-                          );
-                        },
-                        child: const Text('Crear cuenta'),
-                      ),
-                    ],
+                          ],
+                        ),
+                        const SizedBox(height: 20),
+                        BlocBuilder<AuthBloc, AuthState>(
+                          builder: (context, state) {
+                            if (state is AuthError) {
+                              return Text(state.message,
+                                  style: const TextStyle(color: Colors.red));
+                            }
+                            return Container();
+                          },
+                        ),
+                        const SizedBox(height: 20),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const RegisterScreen()),
+                            );
+                          },
+                          child: const Text('CREAR CUENTA'),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),

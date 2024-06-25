@@ -18,6 +18,7 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
   final TextEditingController _lastNameController = TextEditingController();
   final TextEditingController _phoneNumberController = TextEditingController();
   final TextEditingController _birthDateController = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -27,55 +28,103 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: BlocBuilder<AuthBloc, AuthState>(
-          builder: (context, state) {
-            if (state is AuthSignUpSuccess) {
-              return Column(
-                children: [
-                  TextField(
-                    controller: _firstNameController,
-                    decoration: InputDecoration(labelText: "First Name"),
-                  ),
-                  TextField(
-                    controller: _lastNameController,
-                    decoration: InputDecoration(labelText: "Last Name"),
-                  ),
-                  TextField(
-                    controller: _phoneNumberController,
-                    decoration: InputDecoration(labelText: "Phone Number"),
-                  ),
-                  TextField(
-                    controller: _birthDateController,
-                    decoration: InputDecoration(labelText: "Birth Date"),
-                  ),
-                  SizedBox(height: 20),
-                  ElevatedButton(
-                    onPressed: () {
-                      final user = UserModel(
-                        id: state.userId,
-                        email: state.userEmail,
-                        firstName: _firstNameController.text,
-                        lastName: _lastNameController.text,
-                        phoneNumber: _phoneNumberController.text,
-                        birthDate: DateTime.parse(_birthDateController.text),
-                      );
-                      context.read<UserBloc>().add(AddUser(user));
-                      Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(builder: (context) => MyApp()),
-                        (route) => false, // Elimina todas las rutas anteriores
-                      );
-                    },
-                    child: Text("Submit"),
-                  )
-                ],
+        child: BlocListener<UserBloc, UserState>(
+          listener: (context, state) {
+            if (state is UserAddSuccess) {
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => MyApp()),
+                (route) => false, // Elimina todas las rutas anteriores
               );
-            } else {
-              return Center(
-                child: Text(widget.userId),
+            } else if (state is UserAddFailure) {
+              // Mostrar un error si la adición del usuario falla
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text("Failed to add user: ${state.error}")),
               );
             }
           },
+          child: BlocBuilder<AuthBloc, AuthState>(
+            builder: (context, state) {
+              if (state is AuthSignUpSuccess) {
+                return Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      TextFormField(
+                        controller: _firstNameController,
+                        decoration: InputDecoration(labelText: "First Name"),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your first name';
+                          }
+                          return null;
+                        },
+                      ),
+                      TextFormField(
+                        controller: _lastNameController,
+                        decoration: InputDecoration(labelText: "Last Name"),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your last name';
+                          }
+                          return null;
+                        },
+                      ),
+                      TextFormField(
+                        controller: _phoneNumberController,
+                        decoration: InputDecoration(labelText: "Phone Number"),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your phone number';
+                          }
+                          return null;
+                        },
+                      ),
+                      TextFormField(
+                        controller: _birthDateController,
+                        decoration: InputDecoration(
+                            labelText: "Birth Date (yyyy-mm-dd)"),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your birth date';
+                          }
+                          try {
+                            DateTime.parse(value);
+                          } catch (_) {
+                            return 'Please enter a valid date';
+                          }
+                          return null;
+                        },
+                      ),
+                      SizedBox(height: 20),
+                      ElevatedButton(
+                        onPressed: () {
+                          if (_formKey.currentState?.validate() ?? false) {
+                            final user = UserModel(
+                              id: state.userId,
+                              email: state.userEmail,
+                              firstName: _firstNameController.text,
+                              lastName: _lastNameController.text,
+                              phoneNumber: _phoneNumberController.text,
+                              birthDate:
+                                  DateTime.parse(_birthDateController.text),
+                              registrationDate: DateTime.now(),
+                            );
+                            context.read<UserBloc>().add(AddUser(user));
+                          }
+                        },
+                        child: Text("Submit"),
+                      )
+                    ],
+                  ),
+                );
+              } else {
+                return Center(
+                  child: Text("User ID: ${widget.userId}"),
+                );
+              }
+            },
+          ),
         ),
       ),
     );

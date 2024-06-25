@@ -1,4 +1,5 @@
 // lib/blocs/user/user_bloc.dart
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import '../../models/user.dart';
@@ -28,7 +29,12 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   }
 
   void _onAddUser(AddUser event, Emitter<UserState> emit) async {
-    await _userRepository.createUser(event.user);
+    try {
+      await _userRepository.createUser(event.user);
+      emit(UserAddSuccess());
+    } catch (e) {
+      emit(UserAddFailure(e.toString()));
+    }
   }
 
   void _onUsersUpdated(UsersUpdated event, Emitter<UserState> emit) {

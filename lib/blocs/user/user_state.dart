@@ -28,3 +28,14 @@ class UserError extends UserState {
   @override
   List<Object> get props => [message];
 }
+
+class UserAddSuccess extends UserState {}
+
+class UserAddFailure extends UserState {
+  final String error;
+
+  const UserAddFailure(this.error);
+
+  @override
+  List<Object> get props => [error];
+}

@@ -1,10 +1,8 @@
-// lib/widgets/pothole_list.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:zerohuecos/blocs/map/map_bloc.dart';
 import 'package:zerohuecos/blocs/map/map_event.dart';
 import '../blocs/pothole/pothole_bloc.dart';
-// import '../models/pothole.dart';
 
 class PotholeList extends StatefulWidget {
   const PotholeList({super.key});
@@ -35,8 +33,8 @@ class _PotholeListState extends State<PotholeList> {
                   });
                 },
                 child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 16.0, vertical: 8.0),
                   child: Row(
                     children: [
                       Expanded(
@@ -55,11 +53,10 @@ class _PotholeListState extends State<PotholeList> {
                       if (_selectedIndex == index) ...[
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.orange[900],
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 12.0,
-                                vertical: 8.0), // Ajusta el tamaño del padding
-                            textStyle: const TextStyle(
-                                fontSize: 14), // Ajusta el tamaño del texto
+                                horizontal: 12.0, vertical: 8.0),
+                            textStyle: const TextStyle(fontSize: 14),
                           ),
                           onPressed: () {
                             Navigator.pushNamed(
@@ -70,14 +67,13 @@ class _PotholeListState extends State<PotholeList> {
                           },
                           child: const Text('Detalles'),
                         ),
-                        const SizedBox(width: 8), // Espaciado entre botones
+                        const SizedBox(width: 8),
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.orange[900],
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 12.0,
-                                vertical: 8.0), // Ajusta el tamaño del padding
-                            textStyle: const TextStyle(
-                                fontSize: 14), // Ajusta el tamaño del texto
+                                horizontal: 12.0, vertical: 8.0),
+                            textStyle: const TextStyle(fontSize: 14),
                           ),
                           onPressed: () {
                             BlocProvider.of<MapBloc>(context)

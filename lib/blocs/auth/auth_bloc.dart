@@ -75,7 +75,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         firstName: '',
         lastName: '',
         phoneNumber: '',
-        birthDate: DateTime.now(),
+        birthDate: DateTime(2000, 1, 1), // Fecha de nacimiento predeterminada
+        registrationDate: DateTime.now(),
+        ranking: 0,
+        role: 'user',
+        location: '',
+        potholesReportedCount: 0,
+        isVerified: false,
+        bio: '',
       ));
       emit(AuthSignUpSuccess(
           userId: user.uid,
