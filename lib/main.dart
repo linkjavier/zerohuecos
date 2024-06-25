@@ -2,7 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:zerohuecos/blocs/user/user_bloc.dart';
 import 'package:zerohuecos/models/pothole.dart';
+import 'package:zerohuecos/repositories/user_repository.dart';
 import 'blocs/auth/auth_bloc.dart';
 import 'blocs/pothole/pothole_bloc.dart';
 import 'blocs/map/map_bloc.dart';
@@ -27,7 +29,9 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => AuthBloc(authRepository: AuthRepository()),
+          create: (context) => AuthBloc(
+              authRepository: AuthRepository(),
+              userRepository: UserRepository()),
         ),
         BlocProvider(
           create: (context) =>
@@ -36,6 +40,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => MapBloc(),
         ),
+        BlocProvider(
+            create: (context) => UserBloc(userRepository: UserRepository())),
       ],
       child: MaterialApp(
         title: 'ZeroHuecos',

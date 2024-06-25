@@ -4,10 +4,10 @@ import '../models/user.dart';
 
 class UserRepository {
   final CollectionReference _userCollection =
-      FirebaseFirestore.instance.collection('user');
+      FirebaseFirestore.instance.collection('users');
 
   Future<void> createUser(UserModel user) async {
-    await _userCollection.add(user.toMap());
+    await _userCollection.doc(user.id).set(user.toMap());
   }
 
 //Necesitamos obtener todos los usuarios?
