@@ -54,6 +54,7 @@ class _PotholeListState extends State<PotholeList> {
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.orange[900],
+                            foregroundColor: Colors.white,
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 12.0, vertical: 8.0),
                             textStyle: const TextStyle(fontSize: 14),
@@ -71,6 +72,7 @@ class _PotholeListState extends State<PotholeList> {
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.orange[900],
+                            foregroundColor: Colors.white,
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 12.0, vertical: 8.0),
                             textStyle: const TextStyle(fontSize: 14),

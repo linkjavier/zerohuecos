@@ -35,7 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            const SizedBox(height: 80),
+            const SizedBox(height: 30),
             Padding(
               padding: const EdgeInsets.all(20),
               child: Row(
@@ -84,33 +84,49 @@ class _HomeScreenState extends State<HomeScreen> {
                               ));
                             }
                           },
-                          child: GoogleMap(
-                            onMapCreated: (controller) {
-                              _mapController = controller;
-                            },
-                            initialCameraPosition: const CameraPosition(
-                              target: LatLng(0, 0),
-                              zoom: 2,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20.0),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.3),
+                                  spreadRadius: 2,
+                                  blurRadius: 5,
+                                  offset: const Offset(0, 3),
+                                ),
+                              ],
                             ),
-                            markers: context.watch<PotholeBloc>().state
-                                    is PotholeLoaded
-                                ? (context.read<PotholeBloc>().state
-                                        as PotholeLoaded)
-                                    .potholes
-                                    .map((pothole) => Marker(
-                                          markerId: MarkerId(pothole.id),
-                                          position: LatLng(
-                                            pothole.location.latitude,
-                                            pothole.location.longitude,
-                                          ),
-                                          infoWindow: InfoWindow(
-                                            title: pothole.name,
-                                            snippet:
-                                                pothole.timestamp.toString(),
-                                          ),
-                                        ))
-                                    .toSet()
-                                : {},
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(20.0),
+                              child: GoogleMap(
+                                onMapCreated: (controller) {
+                                  _mapController = controller;
+                                },
+                                initialCameraPosition: const CameraPosition(
+                                  target: LatLng(0, 0),
+                                  zoom: 2,
+                                ),
+                                markers: context.watch<PotholeBloc>().state
+                                        is PotholeLoaded
+                                    ? (context.read<PotholeBloc>().state
+                                            as PotholeLoaded)
+                                        .potholes
+                                        .map((pothole) => Marker(
+                                              markerId: MarkerId(pothole.id),
+                                              position: LatLng(
+                                                pothole.location.latitude,
+                                                pothole.location.longitude,
+                                              ),
+                                              infoWindow: InfoWindow(
+                                                title: pothole.name,
+                                                snippet: pothole.timestamp
+                                                    .toString(),
+                                              ),
+                                            ))
+                                        .toSet()
+                                    : {},
+                              ),
+                            ),
                           ),
                         ),
                       ),

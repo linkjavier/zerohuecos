@@ -30,6 +30,8 @@ class _AddPotholeScreenState extends State<AddPotholeScreen> {
   bool _isDisposed = false;
   final List<File> _photos = [];
   final List<File> _videos = [];
+  bool _isUploading = false;
+  double _uploadProgress = 0.0;
 
   @override
   void initState() {
@@ -142,7 +144,6 @@ class _AddPotholeScreenState extends State<AddPotholeScreen> {
   Future<void> _pickImage() async {
     final picker = ImagePicker();
 
-    // Solicitar permisos de almacenamiento y cámara
     var status = await Permission.camera.status;
     if (!status.isGranted) {
       await Permission.camera.request();
@@ -163,7 +164,6 @@ class _AddPotholeScreenState extends State<AddPotholeScreen> {
   Future<void> _pickVideo() async {
     final picker = ImagePicker();
 
-    // Solicitar permisos de almacenamiento y cámara
     var status = await Permission.camera.status;
     if (!status.isGranted) {
       await Permission.camera.request();
@@ -189,6 +189,12 @@ class _AddPotholeScreenState extends State<AddPotholeScreen> {
       Reference storageReference =
           FirebaseStorage.instance.ref().child('$folder/$fileName');
       UploadTask uploadTask = storageReference.putFile(file);
+      uploadTask.snapshotEvents.listen((event) {
+        setState(() {
+          _uploadProgress =
+              event.bytesTransferred.toDouble() / event.totalBytes.toDouble();
+        });
+      });
       TaskSnapshot taskSnapshot = await uploadTask;
       String downloadUrl = await taskSnapshot.ref.getDownloadURL();
       downloadUrls.add(downloadUrl);
@@ -261,8 +267,51 @@ class _AddPotholeScreenState extends State<AddPotholeScreen> {
                 child: const Text('Seleccionar Video'),
               ),
               const SizedBox(height: 20),
+              if (_photos.isNotEmpty)
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Fotos seleccionadas:',
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                    Wrap(
+                      spacing: 10,
+                      runSpacing: 10,
+                      children: _photos
+                          .map((photo) =>
+                              Image.file(photo, height: 100, width: 100))
+                          .toList(),
+                    ),
+                  ],
+                ),
+              if (_videos.isNotEmpty)
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Videos seleccionados:',
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                    Wrap(
+                      spacing: 10,
+                      runSpacing: 10,
+                      children: _videos
+                          .map((video) => Icon(Icons.video_file, size: 100))
+                          .toList(),
+                    ),
+                  ],
+                ),
+              const SizedBox(height: 20),
+              if (_isUploading) LinearProgressIndicator(value: _uploadProgress),
+              const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () async {
+                  setState(() {
+                    _isUploading = true;
+                  });
                   final name = _nameController.text;
                   final position = await _determinePosition();
 
@@ -287,6 +336,9 @@ class _AddPotholeScreenState extends State<AddPotholeScreen> {
                     context.read<PotholeBloc>().add(AddPothole(pothole));
                     Navigator.pop(context);
                   }
+                  setState(() {
+                    _isUploading = false;
+                  });
                 },
                 child: const Text('Agregar'),
               ),
